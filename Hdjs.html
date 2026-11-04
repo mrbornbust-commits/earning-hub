@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#003c2c">
+<title>Spin Winner | Voucher Claim</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+ font-family:Arial,sans-serif;
+ color:white;
+ min-height:100vh;
+ background:
+ radial-gradient(ellipse at 50% 20%,#087b50 0%,transparent 55%),
+ linear-gradient(180deg,#001c19,#003e30 45%,#001914);
+ padding:18px 12px;
+ overflow-x:hidden;
+}
+
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ opacity:.16;
+ background:repeating-linear-gradient(
+  90deg,transparent 0px,
+  #22dca0 2px,transparent 4px,transparent 9px
+ );
+}
+
+.app{
+ position:relative;
+ max-width:440px;
+ margin:auto;
+ min-height:90vh;
+ border:1px solid #b08b27;
+ border-radius:20px;
+ padding:18px;
+ background:linear-gradient(160deg,#064e39,#00251e 75%);
+ box-shadow:0 0 30px #00e89a35;
+ overflow:hidden;
+}
+
+.top{
+ text-align:center;
+ padding:12px 5px 20px;
+ border-bottom:1px solid #b58d32;
+}
+
+.logo{
+ font-size:31px;
+ font-weight:1000;
+ font-style:italic;
+ letter-spacing:1px;
+ color:#ffdf36;
+ text-shadow:0 3px 0 #9a5100,0 0 20px #ffc40070;
+}
+
+.logo span{color:#fff}
+
+.sublogo{
+ color:#6affc3;
+ font-size:11px;
+ letter-spacing:4px;
+ margin-top:5px;
+}
+
+.coins{
+ margin:22px auto;
+ padding:13px;
+ border-radius:13px;
+ background:linear-gradient(90deg,#004a37,#008f62,#00422f);
+ border:1px solid #00df9c;
+ box-shadow:inset 0 0 15px #00ffc055;
+ font-weight:bold;
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.hero{
+ margin-top:22px;
+ padding:25px 15px;
+ text-align:center;
+ border:2px solid #d6a936;
+ border-radius:17px;
+ background:
+ radial-gradient(circle at top,#087c50,#003c2b 75%);
+ box-shadow:0 0 18px #00eaa040;
+}
+
+.hero-icon{
+ font-size:48px;
+ margin-bottom:12px;
+}
+
+h2{
+ color:#ffe14c;
+ font-size:25px;
+ text-shadow:0 2px 5px #000;
+ margin-bottom:12px;
+}
+
+p{
+ color:#c7f8df;
+ font-size:14px;
+ line-height:1.6;
+}
+
+.btn{
+ width:100%;
+ display:block;
+ padding:16px 10px;
+ margin-top:19px;
+ border:2px solid #ffdf55;
+ border-radius:12px;
+ background:linear-gradient(180deg,#ffe45b,#f1a500,#c87900);
+ color:#412500;
+ font-size:17px;
+ font-weight:1000;
+ cursor:pointer;
+ box-shadow:0 5px 0 #754500,0 0 15px #ffcb3650;
+ transition:.2s;
+}
+
+.btn:active{transform:translateY(3px)}
+
+.green-btn{
+ background:linear-gradient(180deg,#31ff75,#00b83c,#007d32);
+ color:white;
+ border-color:#9bff91;
+ box-shadow:0 5px 0 #004d23,0 0 15px #00ff7350;
+}
+
+.section-title{
+ text-align:center;
+ margin:24px 0 15px;
+ font-size:21px;
+ color:#fff;
+ text-shadow:0 0 12px #00ffad;
+}
+
+.channel{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:8px;
+ margin:10px 0;
+ padding:12px;
+ border:1px solid #168d68;
+ border-radius:12px;
+ background:linear-gradient(90deg,#064632,#00382b);
+ box-shadow:inset 0 0 10px #00c47c20;
+}
+
+.channel-name{
+ font-size:13px;
+ font-weight:bold;
+}
+
+.join{
+ text-decoration:none;
+ white-space:nowrap;
+ padding:10px 14px;
+ border-radius:8px;
+ background:linear-gradient(#ffe65c,#e6a400);
+ color:#3a2800;
+ font-weight:900;
+ font-size:12px;
+}
+
+.join.done{
+ background:linear-gradient(#39ff87,#009e4b);
+ color:white;
+}
+
+.progress-box{
+ margin-top:20px;
+ background:#001c19;
+ border:1px solid #168c67;
+ border-radius:12px;
+ padding:13px;
+}
+
+.progress-track{
+ width:100%;
+ height:13px;
+ background:#17251e;
+ border-radius:20px;
+ overflow:hidden;
+ margin-top:10px;
+}
+
+.progress-fill{
+ width:0%;
+ height:100%;
+ background:linear-gradient(90deg,#00ff57,#b7ff00);
+ transition:.3s;
+}
+
+.small{
+ font-size:11px;
+ color:#9ecbb9;
+ margin-top:12px;
+ text-align:center;
+}
+
+.claim-card{
+ margin-top:25px;
+ padding:25px 12px;
+ border:2px solid #e5b93c;
+ border-radius:17px;
+ text-align:center;
+ background:linear-gradient(145deg,#006b48,#003a2b);
+ box-shadow:0 0 25px #00ff9950;
+}
+
+.claim-title{
+ font-size:23px;
+ font-weight:1000;
+ color:#ffe44c;
+ line-height:1.4;
+ text-shadow:0 3px 5px #000;
+}
+
+.check{
+ font-size:55px;
+ margin-bottom:15px;
+ color:#61ff92;
+}
+
+.footer{
+ text-align:center;
+ padding:25px 5px 8px;
+ color:#78b9a1;
+ font-size:10px;
+ letter-spacing:2px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="top">
+ <div class="logo">SPIN <span>WINNER</span></div>
+ <div class="sublogo">OFFICIAL VOUCHER PORTAL</div>
+</header>
+
+<div class="coins">✦ &nbsp; SPIN WINNER VOUCHER CLAIM &nbsp; ✦</div>
+
+<!-- PAGE 1 -->
+<section id="page1" class="page active">
+
+ <div class="hero">
+  <div class="hero-icon">🏆</div>
+  <h2>WELCOME WINNER!</h2>
+  <p>Welcome to Spin Winner Voucher Claim Portal.</p>
+  <p>Complete the steps below to continue.</p>
+
+  <button class="btn" onclick="showPage(2)">
+   VOUCHER CLAIM ➜
+  </button>
+ </div>
+
+ <p class="small">SPIN WINNER • OFFICIAL PORTAL</p>
+
+</section>
+
+<!-- PAGE 2 -->
+<section id="page2" class="page">
+
+ <h2 class="section-title">✦ JOIN OUR CHANNELS ✦</h2>
+
+ <p style="text-align:center">
+ Visit all 12 Telegram channel links and mark each one as completed.
+ </p>
+
+ <div id="channelList"></div>
+
+ <div class="progress-box">
+  <div style="display:flex;justify-content:space-between">
+   <b>JOINING PROGRESS</b>
+   <b id="progressText">0 / 12</b>
+  </div>
+  <div class="progress-track">
+   <div class="progress-fill" id="progressFill"></div>
+  </div>
+ </div>
+
+ <button id="claimButton" class="btn green-btn"
+ disabled onclick="showPage(3)">
+ CLAIM NOW ➜
+ </button>
+
+ <p class="small">
+ All 12 steps must be marked complete to continue.
+ </p>
+
+</section>
+
+<!-- PAGE 3 -->
+<section id="page3" class="page">
+
+ <div class="claim-card">
+
+  <div class="check">✓</div>
+
+  <div class="claim-title">
+   THIS IS YOUR<br>
+   VOUCHER CLAIM
+  </div>
+
+  <p style="margin-top:15px">
+   Your voucher claim journey is ready.
+   Continue to Telegram for further details.
+  </p>
+
+  <button class="btn" onclick="openTelegram()">
+   🎁 CLAIM YOUR VOUCHER
+  </button>
+
+ </div>
+
+ <p class="small">
+ THANK YOU FOR VISITING SPIN WINNER
+ </p>
+
+</section>
+
+<div class="footer">
+ © SPIN WINNER CORPORATION
+</div>
+
+</div>
+
+<script>
+
+// TELEGRAM LINKS
+const TELEGRAM_LINK =
+"https://t.me/+AAKojbHDKRszOWFl";
+
+// CHANGE THIS TO YOUR BOT LINK LATER
+const BOT_URL =
+"https://t.me/+AAKojbHDKRszOWFl";
+
+const TOTAL = 12;
+let completed = new Set();
+
+function showPage(n){
+ document.querySelectorAll(".page").forEach(page=>{
+  page.classList.remove("active");
+ });
+ document.getElementById("page"+n).classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function createChannels(){
+
+ const list=document.getElementById("channelList");
+
+ for(let i=1;i<=TOTAL;i++){
+
+  const row=document.createElement("div");
+  row.className="channel";
+
+  const name=document.createElement("span");
+  name.className="channel-name";
+  name.textContent="✦ TELEGRAM CHANNEL "+String(i).padStart(2,"0");
+
+  const join=document.createElement("a");
+  join.className="join";
+  join.href=TELEGRAM_LINK;
+  join.target="_blank";
+  join.rel="noopener noreferrer";
+  join.textContent="JOIN ➜";
+
+  join.addEventListener("click",()=>{
+   completed.add(i);
+   join.textContent="DONE ✓";
+   join.classList.add("done");
+   updateProgress();
+  });
+
+  row.appendChild(name);
+  row.appendChild(join);
+  list.appendChild(row);
+ }
+}
+
+function updateProgress(){
+
+ const count=completed.size;
+ const percent=(count/TOTAL)*100;
+
+ document.getElementById("progressText").textContent=
+ count+" / "+TOTAL;
+
+ document.getElementById("progressFill").style.width=
+ percent+"%";
+
+ document.getElementById("claimButton").disabled=
+ count!==TOTAL;
+
+ document.getElementById("claimButton").style.opacity=
+ count===TOTAL?"1":".45";
+}
+
+function openTelegram(){
+ window.open(BOT_URL,"_blank");
+}
+
+createChannels();
+updateProgress();
+
+</script>
+
+</body>
+</html>
