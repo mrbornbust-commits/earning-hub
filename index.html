@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#101a2c">
+<title>FREE RUPAYAA</title>
+<style>
+:root{--navy:#101a2c;--green:#b9f2d3;--green2:#72dca9;--deep:#087b55;--ink:#142238;--muted:#718096;--bg:#f3f6f8;--white:#fff}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Inter,system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+.app{height:100dvh;max-width:520px;margin:auto;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+.top{height:54px;flex:none;background:var(--navy);color:#fff;display:flex;align-items:center;padding:0 18px;font-size:18px;font-weight:850;letter-spacing:.2px}.top em{font-style:normal;color:#9ce9bd;margin-left:5px}
+.page{display:none;flex:1;min-height:0;overflow:hidden;padding:0 16px 10px}.page.active{display:flex;flex-direction:column}
+.hero{margin:0 -16px;padding:17px 20px 36px;background:radial-gradient(circle at 90% 10%,#b8f2d2,transparent 42%),linear-gradient(115deg,#143f45,#18364a 55%,#286b58);color:#fff;border-radius:0 0 32px 32px;flex:none}
+.hero h1{font-size:22px;margin:0 0 4px}.hero p{font-size:13px;color:#d8f5e4;margin:0}.live{float:right;border:1px solid #ffffff55;border-radius:20px;padding:6px 10px;font-size:11px}
+.balance{margin-top:-22px;position:relative;background:linear-gradient(115deg,#b8f2d2,#83dfb2 55%,#c8f7dd);border-radius:22px;padding:16px 18px;color:#123d31;box-shadow:0 10px 22px #236a4b18;flex:none}
+.eyebrow{font-size:10px;letter-spacing:1px;font-weight:800;color:#39745d}.amount{font-size:38px;font-weight:850;margin:3px 0 12px}
+.actions{display:flex;gap:9px}.btn{border:0;border-radius:13px;padding:11px 12px;font-size:13px;font-weight:800;cursor:pointer}.btn.dark{background:#126b4d;color:white;flex:1}.btn.light{background:#effff5;color:#176c4e;border:1px solid #8bdab0;flex:1}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0;flex:none}.stat{background:#fff;border-radius:16px;padding:11px 10px;min-width:0;box-shadow:0 5px 15px #26365b08}.stat .ico{width:30px;height:30px;border-radius:10px;background:#e1f8eb;color:#16815a;display:grid;place-items:center;font-size:17px}.stat strong{display:block;font-size:18px;margin:6px 0 1px}.stat small{font-size:10px;color:var(--muted)}
+.refbox{background:#e4f8ec;border:1px solid #c8efd8;border-radius:17px;padding:12px 14px;display:flex;align-items:center;gap:12px;flex:none}.reficon{height:40px;width:40px;border-radius:50%;background:#20a66f;color:#fff;display:grid;place-items:center;font-size:20px}.refbox b{font-size:14px}.refbox small{display:block;color:#668173;font-size:11px;margin-top:3px}
+.subhead{display:flex;align-items:center;justify-content:space-between;margin:13px 2px 8px;font-size:15px;font-weight:850;flex:none}.tag{background:#e1f7e9;color:#267650;border-radius:20px;padding:5px 9px;font-size:10px}
+.hint{margin:auto 0;text-align:center;color:var(--muted);font-size:12px;line-height:1.4}
+.taskhero{margin:0 -16px 12px;padding:17px 20px 35px;background:radial-gradient(circle at 90% 10%,#b8f2d2,transparent 42%),linear-gradient(115deg,#143f45,#18364a 55%,#286b58);color:white;border-radius:0 0 30px 30px;flex:none}
+.taskhero h1{margin:0 0 3px;font-size:22px}.taskhero p{margin:0;color:#d8f5e4;font-size:13px}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);background:#fff;border-radius:18px;padding:12px 4px;margin-top:-22px;position:relative;flex:none;text-align:center;box-shadow:0 5px 16px #26365b0b}
+.summary div+div{border-left:1px solid #e8edf0}.summary small{font-size:9px;letter-spacing:.5px;color:var(--muted);font-weight:800}.summary b{display:block;font-size:20px;margin-top:4px}
+.filters{display:flex;gap:4px;background:#e5f3eb;border-radius:14px;padding:4px;margin:11px 0 8px;flex:none}.filters button{flex:1;border:0;border-radius:11px;padding:8px 3px;background:transparent;color:#668174;font-size:12px;font-weight:750}.filters button.active{background:#fff;color:#176d4e;box-shadow:0 3px 9px #204d3510}
+.taskgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;align-content:start;overflow:auto;min-height:0;padding-bottom:3px}.task{background:#fff;border:1px solid #e9f0ec;border-radius:13px;padding:9px;display:flex;align-items:center;justify-content:space-between;gap:4px;min-width:0}.task b{font-size:10px;display:block;white-space:nowrap}.task small{font-size:9px;color:var(--muted)}.task button{border:0;border-radius:9px;background:linear-gradient(135deg,#b9f5d0,#65d99a);color:#075b3d;padding:7px 9px;font-size:10px;font-weight:850;white-space:nowrap;box-shadow:0 3px 10px #27a96a30;transition:transform .15s,filter .15s}.task button:active{transform:scale(.96);filter:saturate(1.2)}
+.refhero{margin:0 -16px 12px;padding:17px 20px 35px;background:radial-gradient(circle at 90% 10%,#b8f2d2,transparent 42%),linear-gradient(115deg,#143f45,#18364a 55%,#286b58);color:#fff;border-radius:0 0 30px 30px;flex:none}.refhero h1{font-size:22px;margin:0 0 3px}.refhero p{font-size:13px;margin:0;color:#d8f5e4}
+.reward{background:linear-gradient(120deg,#a9edc7,#68d59f);color:#124632;border-radius:22px;text-align:center;padding:18px 12px;margin-top:-18px;position:relative;flex:none}.reward .gift{font-size:25px}.reward h2{font-size:29px;margin:5px 0}.reward p{font-size:11px;line-height:1.4;margin:0;color:#376d54}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:11px 0;flex:none}.how{background:white;border-radius:17px;padding:13px 15px;font-size:12px;line-height:1.45;overflow:hidden}.how h3{margin:0 0 7px;font-size:15px}.how p{margin:4px 0;color:var(--muted)}
+.profile{background:#fff;border-radius:18px;padding:14px;display:flex;align-items:center;gap:12px;margin-top:-18px;position:relative;flex:none}.avatar{height:48px;width:48px;border-radius:50%;background:#def7e8;display:grid;place-items:center;font-size:23px}.profile b{font-size:15px}.profile small{display:block;color:var(--muted);margin-top:3px}
+.wallet{margin:12px 0;flex:none}.wallet .amount{font-size:34px}.wallet .walletline{font-size:11px;color:#386e55}
+.menu{background:#fff;border-radius:17px;padding:4px 14px;flex:none}.menu div{padding:11px 2px;border-bottom:1px solid #edf1ef;font-size:13px;font-weight:750}.menu div:last-child{border:0}.menu small{display:block;font-size:10px;color:var(--muted);font-weight:400;margin-top:2px}
+.nav{height:68px;flex:none;margin:0 14px 10px;background:#fffffff2;border-radius:22px;padding:6px;display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 8px 25px #26365b16}.nav button{border:0;background:transparent;border-radius:16px;color:#91a0a0;font-size:11px;font-weight:750}.nav button span{display:block;font-size:19px;margin-bottom:1px}.nav button.active{background:#e2f8ea;color:#18744f}
+.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:#173d30;color:white;border-radius:13px;padding:11px 15px;font-size:12px;max-width:90%;text-align:center;display:none;z-index:5}.toast.show{display:block}
+@media(max-height:700px){.hero{padding-top:12px;padding-bottom:30px}.balance{padding:12px 15px}.amount{font-size:32px;margin:2px 0 8px}.stats{margin:8px 0}.stat{padding:8px}.refbox{padding:9px}.subhead{margin:9px 2px 6px}.taskhero,.refhero{padding-top:13px;padding-bottom:28px}.summary{padding:9px 4px}.filters{margin:8px 0 6px}.nav{height:60px;margin-bottom:6px}.reward{padding:13px}.reward h2{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">FREE RUPAYAA <em>✦</em></header>
+
+<section class="page active" id="home">
+  <div class="hero"><span class="live">● PREVIEW</span><h1>Welcome back</h1><p>Reward member dashboard</p></div>
+  <div class="balance"><div class="eyebrow">PREVIEW BALANCE · NOT CASH</div><div class="amount">₹30.00</div><div class="actions"><button class="btn dark" onclick="withdrawFlow()">↓ Withdraw</button><button class="btn light" onclick="toast('No real transactions yet — demo preview only.')">◷ History</button></div></div>
+  <div class="stats"><div class="stat"><div class="ico">↗</div><strong>₹30</strong><small>Preview amount</small></div><div class="stat"><div class="ico">◷</div><strong>₹0</strong><small>In review</small></div><div class="stat"><div class="ico">♧</div><strong>0</strong><small>Invited</small></div></div>
+  <div class="refbox" onclick="go('refer')"><div class="reficon">➤</div><div><b>Invite & earn ₹20*</b><small>Referral preview · tap to view</small></div></div>
+  <div class="subhead">Available Tasks <span class="tag">12 channels</span></div>
+  <div class="hint">Open all 12 channel links to continue. The Telegram bot must verify actual membership.</div>
+</section>
+
+<section class="page" id="tasks">
+  <div class="taskhero"><h1>Tasks</h1><p>Visit all 12 channel links, then continue to the bot</p></div>
+  <div class="summary"><div><small>OPEN</small><b id="openN">12</b></div><div><small>REWARD POOL</small><b style="color:#17865a">₹30</b></div><div><small>VERIFIED</small><b id="verifiedN">0</b></div></div>
+  <div class="filters"><button class="active" onclick="filter('all',this)">All</button><button onclick="filter('open',this)">Open</button><button onclick="filter('verified',this)">Verified</button></div>
+  <div class="taskgrid" id="taskGrid"></div>
+  <div class="hint" style="font-size:10px;margin:7px 0 0">Opening a link is not proof of joining. The Telegram bot must verify membership before any real withdrawal.</div>
+</section>
+
+<section class="page" id="refer">
+  <div class="refhero"><h1>Refer & Earn</h1><p>Invite friends to the bot</p></div>
+  <div class="reward"><div class="gift">🎁</div><h2>₹20 per invite*</h2><p>*Demo display only. Referral rewards are not currently active.</p></div>
+  <div class="two"><div class="stat"><div class="ico">♧</div><strong>0</strong><small>Total invited</small></div><div class="stat"><div class="ico">▣</div><strong>₹0</strong><small>Referral earnings</small></div></div>
+  <div class="how"><h3>Your bot link</h3><p>Share the official bot link with friends.</p><button class="btn dark" style="width:100%;margin-top:8px" onclick="shareBot()">➤ Share @FreeRupyaa_Bot</button></div><div class="how"><h3>How it works</h3><b>1. Share your link</b><p>Friends start your Telegram bot.</p><b>2. They join the channels</b><p>The server checks all required memberships.</p><b>3. Reward review</b><p>Only genuine verified referrals qualify.</p></div>
+</section>
+
+<section class="page" id="account">
+  <div class="refhero"><h1>Profile & Wallet</h1><p>Manage your demo account</p></div>
+  <div class="profile"><div class="avatar">👤</div><div><b>Reward Member</b><small>Demo profile · ID not connected</small></div></div>
+  <div class="balance wallet"><div class="eyebrow">PREVIEW BALANCE · NOT CASH</div><div class="amount">₹30.00</div><div class="walletline">Earned ₹30 &nbsp; · &nbsp; In review ₹0</div></div>
+  <div class="menu"><div>◷ &nbsp; Transaction Ledger<small>Real transaction history not connected</small></div><div onclick="go('refer')">➤ &nbsp; Referral Program<small>₹20 per verified invite · demo</small></div><div onclick="go('tasks')">☑ &nbsp; My Tasks<small>12 placeholder channel links</small></div></div>
+  <div class="hint" style="font-size:10px;margin-top:10px">This page cannot verify membership, collect payment details, or send withdrawals. Use the bot for official information.</div>
+</section>
+
+<nav class="nav">
+<button class="active" onclick="go('home',this)"><span>⌂</span>Home</button>
+<button onclick="go('tasks',this)"><span>☑</span>Tasks</button>
+<button onclick="go('refer',this)"><span>♧</span>Refer</button>
+<button onclick="go('account',this)"><span>♙</span>Account</button>
+</nav>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const JOIN_LINK='https://t.me/+AAKojbHDKRszOWFl';
+const tasks=Array.from({length:12},(_,i)=>({id:i+1,visited:false}));
+let current='all';
+function go(id,button){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(button)button.classList.add('active');else document.querySelectorAll('.nav button')[['home','tasks','refer','account'].indexOf(id)].classList.add('active')}
+function toast(message){const t=document.getElementById('toast');t.textContent=message;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),2600)}
+function openBot(){toast('Opening @FreeRupyaa_Bot');setTimeout(()=>{window.location.href='https://t.me/FreeRupyaa_Bot'},250)}
+function withdrawFlow(){const count=tasks.filter(t=>t.visited).length;if(count<12){toast('First visit all 12 channel links, then tap Withdraw again.');go('tasks');return}openBot()}
+function shareBot(){const link='https://t.me/FreeRupyaa_Bot';if(navigator.share){navigator.share({title:'FREE RUPAYAA Bot',text:'Open the FREE RUPAYAA Telegram bot:',url:link}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(link).then(()=>toast('Bot link copied!')).catch(()=>openBot())}else{toast(link)}}
+function render(){const grid=document.getElementById('taskGrid');grid.innerHTML='';const visible=tasks.filter(t=>current==='all'||(current==='verified'?t.visited:!t.visited));visible.forEach(t=>{const card=document.createElement('div');card.className='task';const info=document.createElement('div');const b=document.createElement('b');b.textContent='Channel '+String(t.id).padStart(2,'0');const s=document.createElement('small');s.textContent=t.visited?'Link opened · membership not checked':'Join required';info.append(b,s);const btn=document.createElement('button');btn.textContent=t.visited?'Opened ✓':'Join ↗';btn.style.background='linear-gradient(135deg,#b9f5d0,#65d99a)';btn.style.color='#075b3d';btn.style.boxShadow='0 3px 10px #27a96a30';btn.onclick=()=>{window.open(JOIN_LINK,'_blank');t.visited=true;render();toast('Link opened. The bot must verify membership; this page cannot confirm joining.')};card.append(info,btn);grid.append(card)});document.getElementById('openN').textContent=12-tasks.filter(t=>t.visited).length;document.getElementById('verifiedN').textContent=tasks.filter(t=>t.visited).length}
+function filter(value,button){current=value;document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));button.classList.add('active');render()}
+render();
+</script>
+</body>
+</html>
