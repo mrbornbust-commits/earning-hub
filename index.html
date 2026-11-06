@@ -43,7 +43,7 @@
 
 <section class="page active" id="home">
   <div class="hero"><span class="live">● PREVIEW</span><h1>Welcome back</h1><p>Reward member dashboard</p></div>
-  <div class="balance"><div class="eyebrow">PREVIEW BALANCE · NOT CASH</div><div class="amount">₹30.00</div><div class="actions"><button class="btn dark" onclick="withdrawFlow()">↓ Withdraw</button><button class="btn light" onclick="toast('No real transactions yet — demo preview only.')">◷ History</button></div></div>
+  <div class="balance"><div class="eyebrow">PREVIEW BALANCE · NOT CASH</div><div class="amount">₹30.00</div><div class="actions"><button class="btn dark" onclick="withdrawFlow()">↓ Withdraw</button><button class="btn light" onclick="toast('No transactions yet — preview.')">◷ History</button></div></div>
   <div class="stats"><div class="stat"><div class="ico">↗</div><strong>₹30</strong><small>Preview amount</small></div><div class="stat"><div class="ico">◷</div><strong>₹0</strong><small>In review</small></div><div class="stat"><div class="ico">♧</div><strong>0</strong><small>Invited</small></div></div>
   <div class="refbox" onclick="go('refer')"><div class="reficon">➤</div><div><b>Invite & earn ₹20*</b><small>Referral preview · tap to view</small></div></div>
   <div class="subhead">Available Tasks <span class="tag">12 channels</span></div>
@@ -55,7 +55,7 @@
   <div class="summary"><div><small>OPEN</small><b id="openN">12</b></div><div><small>REWARD POOL</small><b style="color:#17865a">₹30</b></div><div><small>VERIFIED</small><b id="verifiedN">0</b></div></div>
   <div class="filters"><button class="active" onclick="filter('all',this)">All</button><button onclick="filter('open',this)">Open</button><button onclick="filter('verified',this)">Verified</button></div>
   <div class="taskgrid" id="taskGrid"></div>
-  <div class="hint" style="font-size:10px;margin:7px 0 0">Opening a link is not proof of joining. The Telegram bot must verify membership before any real withdrawal.</div>
+  <div class="hint" style="font-size:10px;margin:7px 0 0">Opening a link is not proof of joining. The Telegram bot must verify membership before any withdrawal.</div>
 </section>
 
 <section class="page" id="refer">
@@ -81,17 +81,132 @@
 </nav>
 </div>
 <div class="toast" id="toast"></div>
+
 <script>
-const JOIN_LINK='https://t.me/+AAKojbHDKRszOWFl';
-const tasks=Array.from({length:12},(_,i)=>({id:i+1,visited:false}));
+const BOT_LINK='https://t.me/FreeRupyaa_Bot';
+
+const tasks=[
+{id:1,url:'https://t.me/+AAKojbHDKRszOWFl',visited:false},
+{id:2,url:'https://t.me/+KbrnbMFSNANiODJl',visited:false},
+{id:3,url:'https://t.me/+bIE99fbX8Pg1OTk1',visited:false},
+{id:4,url:'https://t.me/+AAKojbHDKRszOWFl',visited:false},
+{id:5,url:'https://t.me/+BozEqySkEYs4Mjc9',visited:false},
+{id:6,url:'https://t.me/+HzjsRMZxLGsyZmFl',visited:false},
+{id:7,url:'https://t.me/+RuS55p8ULwAwMWJl',visited:false},
+{id:8,url:'https://t.me/+YD1GztK1i90xYTE9',visited:false},
+{id:9,url:'https://t.me/+a5QH0NgX9kw0Y2Vl',visited:false},
+{id:10,url:'https://t.me/+bvJJBE4_8h4yNWY1',visited:false},
+{id:11,url:'https://t.me/+cb_ADDKUNqVlYzFl',visited:false},
+{id:12,url:'https://t.me/+kqsXUeejdpczMWM1',visited:false}
+];
+
 let current='all';
-function go(id,button){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(button)button.classList.add('active');else document.querySelectorAll('.nav button')[['home','tasks','refer','account'].indexOf(id)].classList.add('active')}
-function toast(message){const t=document.getElementById('toast');t.textContent=message;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),2600)}
-function openBot(){toast('Opening @FreeRupyaa_Bot');setTimeout(()=>{window.location.href='https://t.me/FreeRupyaa_Bot'},250)}
-function withdrawFlow(){const count=tasks.filter(t=>t.visited).length;if(count<12){toast('First visit all 12 channel links, then tap Withdraw again.');go('tasks');return}openBot()}
-function shareBot(){const link='https://t.me/FreeRupyaa_Bot';if(navigator.share){navigator.share({title:'FREE RUPAYAA Bot',text:'Open the FREE RUPAYAA Telegram bot:',url:link}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(link).then(()=>toast('Bot link copied!')).catch(()=>openBot())}else{toast(link)}}
-function render(){const grid=document.getElementById('taskGrid');grid.innerHTML='';const visible=tasks.filter(t=>current==='all'||(current==='verified'?t.visited:!t.visited));visible.forEach(t=>{const card=document.createElement('div');card.className='task';const info=document.createElement('div');const b=document.createElement('b');b.textContent='Channel '+String(t.id).padStart(2,'0');const s=document.createElement('small');s.textContent=t.visited?'Link opened · membership not checked':'Join required';info.append(b,s);const btn=document.createElement('button');btn.textContent=t.visited?'Opened ✓':'Join ↗';btn.style.background='linear-gradient(135deg,#b9f5d0,#65d99a)';btn.style.color='#075b3d';btn.style.boxShadow='0 3px 10px #27a96a30';btn.onclick=()=>{window.open(JOIN_LINK,'_blank');t.visited=true;render();toast('Link opened. The bot must verify membership; this page cannot confirm joining.')};card.append(info,btn);grid.append(card)});document.getElementById('openN').textContent=12-tasks.filter(t=>t.visited).length;document.getElementById('verifiedN').textContent=tasks.filter(t=>t.visited).length}
-function filter(value,button){current=value;document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));button.classList.add('active');render()}
+
+function go(id,button){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+if(button)button.classList.add('active');
+else document.querySelectorAll('.nav button')[['home','tasks','refer','account'].indexOf(id)].classList.add('active');
+}
+
+function toast(message){
+const t=document.getElementById('toast');
+t.textContent=message;
+t.classList.add('show');
+clearTimeout(window.toastTimer);
+window.toastTimer=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+function openBot(){
+toast('Opening @FreeRupyaa_Bot');
+setTimeout(()=>{window.location.href=BOT_LINK},250);
+}
+
+function withdrawFlow(){
+const count=tasks.filter(t=>t.visited).length;
+if(count<12){
+toast('First visit all 12 channel links, then tap Withdraw again.');
+go('tasks');
+return;
+}
+openBot();
+}
+
+function shareBot(){
+const link=BOT_LINK;
+if(navigator.share){
+navigator.share({
+title:'FREE RUPAYAA Bot',
+text:'Open the FREE RUPAYAA Telegram bot:',
+url:link
+}).catch(()=>{});
+}else if(navigator.clipboard){
+navigator.clipboard.writeText(link)
+.then(()=>toast('Bot link copied!'))
+.catch(()=>openBot());
+}else{
+toast(link);
+}
+}
+
+function render(){
+const grid=document.getElementById('taskGrid');
+grid.innerHTML='';
+
+const visible=tasks.filter(t=>
+current==='all'||
+(current==='verified'?t.visited:!t.visited)
+);
+
+visible.forEach(t=>{
+const card=document.createElement('div');
+card.className='task';
+
+const info=document.createElement('div');
+const b=document.createElement('b');
+b.textContent='Channel '+String(t.id).padStart(2,'0');
+
+const s=document.createElement('small');
+s.textContent=t.visited?
+'Link opened · membership not checked':
+'Join required';
+
+info.append(b,s);
+
+const btn=document.createElement('button');
+btn.textContent=t.visited?'Opened ✓':'Join ↗';
+
+btn.style.background='linear-gradient(135deg,#b9f5d0,#65d99a)';
+btn.style.color='#075b3d';
+btn.style.boxShadow='0 3px 10px #27a96a30';
+
+btn.onclick=()=>{
+window.open(t.url,'_blank');
+t.visited=true;
+render();
+toast('Link opened. The bot must verify membership; this page cannot confirm joining.');
+};
+
+card.append(info,btn);
+grid.append(card);
+});
+
+document.getElementById('openN').textContent=
+12-tasks.filter(t=>t.visited).length;
+
+document.getElementById('verifiedN').textContent=
+tasks.filter(t=>t.visited).length;
+}
+
+function filter(value,button){
+current=value;
+document.querySelectorAll('.filters button')
+.forEach(b=>b.classList.remove('active'));
+button.classList.add('active');
+render();
+}
+
 render();
 </script>
 </body>
